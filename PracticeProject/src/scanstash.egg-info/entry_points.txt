@@ -1,0 +1,2 @@
+[console_scripts]
+run = scanstash.__main__:main
