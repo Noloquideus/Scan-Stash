@@ -1,0 +1,18 @@
+<app-menu class="unprint"></app-menu>
+<div class="view-qr-container">
+
+  <mat-card class="search-box">
+    <mat-form-field>
+      <input matInput type="text" id="searchInput" [(ngModel)]="keyword" name="keyword" placeholder="Поиск">
+    </mat-form-field>
+    <button mat-button color="primary" (click)="onSearch()">Искать</button>
+  </mat-card>
+
+  <mat-card class="result-box">
+    <h3>Результаты поиска:</h3>
+    <ul>
+      <li *ngFor="let result of searchResults">{{ result }}</li>
+    </ul>
+  </mat-card>
+
+</div>
