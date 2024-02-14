@@ -17,7 +17,7 @@ from scanstash.interfaces.produtc_service import ProductService
 
 
 async def main() -> None:
-    app = FastAPI()
+    app = FastAPI(title="Scan&Stash")
 
     auth_service = AuthServiceImpl(
         connect(

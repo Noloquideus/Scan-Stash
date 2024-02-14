@@ -10,3 +10,6 @@ class AuthService:  # нужно ли сюда передавать connection
 
     def authenticate(self, session_id: Optional[str]) -> str:
         raise NotImplementedError
+
+    def delete(self, session_id: Optional[str]) -> bool:
+        raise NotImplementedError

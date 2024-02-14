@@ -11,3 +11,11 @@ class PlaceService:
         about: Optional[str],
     ) -> None:
         raise NotImplementedError
+
+    def delete(
+        self,
+        *,
+        user_id: int,
+        name: str,
+    ) -> None:
+        raise NotImplementedError

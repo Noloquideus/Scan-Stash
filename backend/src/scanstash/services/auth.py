@@ -83,3 +83,14 @@ class AuthServiceImpl:
             if not user_id:
                 raise HTTPException(400, "Incorrect session_id provided")
         return user_id
+
+    def delete(self, session_id: Optional[str]) -> None:
+        user_id = self.authenticate(session_id)
+        with self._connection.cursor() as cursor:
+            cursor.execute(
+                """
+                DELETE FROM users u WHERE u.id = %s
+                """,
+                (user_id,),
+            )
+            self._connection.commit()

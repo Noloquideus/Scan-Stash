@@ -10,7 +10,7 @@ from scanstash.interfaces.place_service import PlaceService
 place_router = APIRouter(prefix="/place")
 
 
-class PlaceSchema(BaseModel):
+class AddPlaceSchema(BaseModel):
     name: str
     qr_txt: str
     about: Optional[str]
@@ -18,16 +18,35 @@ class PlaceSchema(BaseModel):
 
 @place_router.post("/add")
 async def add(
-    data: PlaceSchema,
+    data: AddPlaceSchema,
     auth_service: AuthService = Depends(),
     place_service: PlaceService = Depends(),
     session_id: Optional[str] = Cookie(None),
-):
+) -> bool:
     user_id = auth_service.authenticate(session_id)
     place_service.add(
         user_id=user_id,
         name=data.name,
         qr_txt=data.qr_txt,
         about=data.about,
+    )
+    return True
+
+
+class DeletePlaceSchema(BaseModel):
+    name: str
+
+
+@place_router.delete("/delete")
+async def delete(
+    data: DeletePlaceSchema,
+    auth_service: AuthService = Depends(),
+    place_service: PlaceService = Depends(),
+    session_id: Optional[str] = Cookie(None),
+) -> bool:
+    user_id = auth_service.authenticate(session_id)
+    place_service.delete(
+            user_id=user_id,
+            name=data.name,
     )
     return True
