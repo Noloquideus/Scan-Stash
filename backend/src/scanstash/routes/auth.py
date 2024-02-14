@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Response, Depends
 from pydantic import BaseModel
 
-from scanstash.interfaces.auth_service import AuthService  
+from scanstash.interfaces.auth_service import AuthService
 
 
 auth_router = APIRouter(prefix="/auth")
@@ -12,7 +12,6 @@ class RegisterSchema(BaseModel):
     password: str
 
 
-"/auth/register"
 @auth_router.post("/register")
 async def register(
     data: RegisterSchema,
@@ -23,11 +22,7 @@ async def register(
         username=data.username,
         password=data.password,
     )
-    response.set_cookie(
-        key="session_id",
-        value=session_id,
-        httponly=True,
-    )
+    response.set_cookie(key="session_id", value=session_id, httponly=True)
     return True
 
 
@@ -36,7 +31,6 @@ class LoginSchema(BaseModel):
     password: str
 
 
-"/auth/login"
 @auth_router.post("/login")
 async def login(
     data: LoginSchema,
@@ -47,21 +41,5 @@ async def login(
         username=data.username,
         password=data.password,
     )
-    response.set_cookie(
-        key="session_id",
-        value=session_id,
-        httponly=True,
-    )
+    response.set_cookie(key="session_id", value=session_id, httponly=True)
     return True
-
-
-"""
-payload:
-    {
-        "user_id": 1
-    }
-headers:
-    "server": "uvicorn"
-    "ip" = "127.0.0.1"
-    "Set-Cookie-X" = {"name": "value"}
-"""

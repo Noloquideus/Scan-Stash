@@ -1,7 +1,7 @@
 version: '3.5'
 
 volumes:
-  -pgdata-auth:
+  -pgdata:
 
 services:
   postgres:
@@ -16,18 +16,20 @@ services:
       - POSTGRES_DB
 
     ports:
-      - "5432:5432"
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - ${HOME}/pgdata:/var/lib/postgresql/data
   web_api:
     profiles: [web_api]
     container_name: "scanstash.web_api"
     depends_on:
       - postgres
-    restart: unless-stopped 
+    restart: unless-stopped
 
-    build: 
+    build:
       context: ./
       dockerfile: ./Dockerfile
       target: web_api
-  
-    ports: 
+
+    ports:
       - "8000:8000"

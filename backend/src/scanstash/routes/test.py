@@ -5,16 +5,13 @@ from fastapi import APIRouter, Depends, Cookie
 from scanstash.interfaces.auth_service import AuthService
 
 
-items_router = APIRouter()
+test_router = APIRouter(prefix="/test")
 
 
-@items_router.get("/items")
-async def get_items(
+@test_router.get("/test")
+async def get_test(
     auth_service: AuthService = Depends(),
     session_id: Optional[str] = Cookie(None),
 ):
-    auth_service.authenticate(session_id)
-    return [{"item": 1}]
-
-
-#это просто тестовая хуйня
+    user_id = auth_service.authenticate(session_id)
+    return [{"user_id": user_id}]
