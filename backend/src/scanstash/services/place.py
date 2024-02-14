@@ -52,7 +52,7 @@ class PlaceServiceImpl:
             correct_name = cursor.fetchone()
             if not correct_name:
                 raise HTTPException(400, "There is no place with this name")
-            
+
             cursor.execute(
                 """
                 DELETE FROM places

@@ -46,7 +46,24 @@ async def delete(
 ) -> bool:
     user_id = auth_service.authenticate(session_id)
     place_service.delete(
-            user_id=user_id,
-            name=data.name,
+        user_id=user_id,
+        name=data.name,
     )
     return True
+
+
+class PatchPlaceSchema(BaseModel):
+    name: Optional[str]
+    qr_txt: Optional[str]
+    about: Optional[str]
+
+
+# @place_router.patch("/change_info")
+# async def change_info(
+#     data: PatchPlaceSchema,
+#     auth_service: AuthService = Depends(),
+#     place_service: PlaceService = Depends(),
+#     session_id: Optional[str] = Cookie(None),
+# ) -> None:
+#     data
+#     ...
