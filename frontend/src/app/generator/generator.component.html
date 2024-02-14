@@ -1,0 +1,33 @@
+<app-menu class="unprint"></app-menu>
+
+<div class="form-container">
+  <span class="unprint">
+    <button mat-raised-button color="primary" (click)="print()">Печать</button>
+  </span>
+
+  <mat-form-field>
+    <label for="numberOfPlaces">Number of Places:</label>
+    <input matInput type="number" id="numberOfPlaces" [(ngModel)]="numberOfPlaces">
+  </mat-form-field>
+
+  <mat-form-field>
+    <label for="numberOfItems">Number of Items:</label>
+    <input matInput type="number" id="numberOfItems" [(ngModel)]="numberOfItems">
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" (click)="generateQRCodes()">Сгенерировать</button>
+</div>
+
+<p>Места</p>
+<mat-grid-list cols="6" rowHeight="1:1">
+  <mat-grid-tile *ngFor="let item of places; index as currentElementIndex;">
+    <qrcode [qrdata]="item" [width]="25" [errorCorrectionLevel]="'H'"></qrcode>
+  </mat-grid-tile>
+</mat-grid-list>
+
+<p>Вещи</p>
+<mat-grid-list cols="6" rowHeight="1:1">
+  <mat-grid-tile *ngFor="let item of items; index as currentElementIndex;">
+    <qrcode [qrdata]="item" [width]="25" [errorCorrectionLevel]="'H'"></qrcode>
+  </mat-grid-tile>
+</mat-grid-list>

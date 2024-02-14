@@ -1,0 +1,29 @@
+<h1>Login</h1>
+<form (ngSubmit)="login()">
+  <div>
+    <mat-form-field class="example-full-width">
+      <mat-label>Username</mat-label>
+      <input matInput
+             [formControl]="usernameFormControl" [errorStateMatcher]="matcher"
+             placeholder="Username"
+      >
+      @if (usernameFormControl.hasError('required')) {
+        <mat-error>Username is <strong>required</strong></mat-error>
+      }
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field class="example-full-width">
+      <mat-label>Password</mat-label>
+      <input matInput
+             type="password"
+             [formControl]="passwordFormControl" [errorStateMatcher]="matcher"
+             placeholder="Password"
+      >
+      @if (passwordFormControl.hasError('required')) {
+        <mat-error>Password is <strong>required</strong></mat-error>
+      }
+    </mat-form-field>
+  </div>
+  <button mat-raised-button color="primary" (click)="login">Login</button>
+</form>
