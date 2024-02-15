@@ -1,2 +1,20 @@
-<app-menu class="unprint"></app-menu>
-<p>Привязка works!</p>
+<app-menu></app-menu>
+<button mat-raised-button color="primary" *ngIf="!scanOn" (click)="startScan()">Сканировать</button>
+<div [class.hidden]="!scanOn">
+  <button mat-raised-button color="primary" *ngIf="scanOn" (click)="switchCamera()">Сменить камеру</button>
+  <button mat-raised-button color="primary" *ngIf="scanOn" (click)="toggleFlash()">Включить подсветку</button>
+  <video #video width="800"></video>
+</div>
+{{scanOn | json}}
+<div *ngIf="!scanOn && hasScannedResult && bindingMode">
+  <div *ngIf="scanIsPlace">
+    <p> привязка нового места</p>
+    <mat-form-field>
+      <mat-label>Название места</mat-label>
+      <input matInput placeholder="Шкаф" [formControl]="nameFormControl" >
+    </mat-form-field>
+    <p> идентификатор: {{result}}</p>
+    <button mat-raised-button color="primary">Сохранить</button>
+  </div>
+</div>
+
