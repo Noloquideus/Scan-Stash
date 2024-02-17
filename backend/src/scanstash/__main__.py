@@ -8,11 +8,14 @@ from scanstash.routes.auth import auth_router
 from scanstash.routes.test import test_router
 from scanstash.routes.place import place_router
 from scanstash.routes.product import product_router
+from scanstash.routes.search import search_router
 from scanstash.services.auth import AuthServiceImpl
 from scanstash.services.place import PlaceServiceImpl
 from scanstash.services.product import ProductServiceImpl
+from scanstash.services.search import SearchServiceImpl
 from scanstash.interfaces.auth_service import AuthService
 from scanstash.interfaces.place_service import PlaceService
+from scanstash.interfaces.search_service import SearchService
 from scanstash.interfaces.produtc_service import ProductService
 
 
@@ -43,7 +46,16 @@ async def main() -> None:
             user="postgres",
         ),
     )
+    search_service = SearchServiceImpl(
+        connect(
+            dbname="scanstashdb",
+            host="0.0.0.0",
+            password="1234",
+            user="postgres",
+        ),
+    )
 
+    app.dependency_overrides[SearchService] = lambda: search_service
     app.dependency_overrides[AuthService] = lambda: auth_service
     app.dependency_overrides[PlaceService] = lambda: place_service
     app.dependency_overrides[ProductService] = lambda: product_service
@@ -52,6 +64,7 @@ async def main() -> None:
     app.include_router(test_router)
     app.include_router(place_router)
     app.include_router(product_router)
+    app.include_router(search_router)
 
     config = Config(app, host="0.0.0.0")
     server = Server(config)
