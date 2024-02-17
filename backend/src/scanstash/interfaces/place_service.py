@@ -19,3 +19,11 @@ class PlaceService:
         name: str,
     ) -> None:
         raise NotImplementedError
+
+    def get_info(
+        self,
+        *,
+        user_id: int,
+        name: str,
+    ) -> None:
+        raise NotImplementedError

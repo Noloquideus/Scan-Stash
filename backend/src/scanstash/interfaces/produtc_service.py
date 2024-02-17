@@ -12,3 +12,21 @@ class ProductService:
         user_id: int,
     ) -> None:
         raise NotImplementedError
+
+    def delete(
+        self,
+        *,
+        user_id: int,
+        place_name: str,
+        product_name: str,
+    ) -> None:
+        raise NotImplementedError
+
+    def get_info(
+        self,
+        *,
+        user_id: int,
+        place_name: str,
+        product_name: str,
+    ) -> None:
+        raise NotImplementedError

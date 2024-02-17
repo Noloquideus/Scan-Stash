@@ -52,13 +52,25 @@ async def delete(
     return True
 
 
-class PatchPlaceSchema(BaseModel):
-    name: Optional[str]
-    qr_txt: Optional[str]
-    about: Optional[str]
+class GetInfoPlaceSchema(BaseModel):
+    place_name: Optional[str]
 
 
-# @place_router.patch("/change_info")
+@place_router.post("/get_info")
+async def get_info(
+    data: DeletePlaceSchema,
+    auth_service: AuthService = Depends(),
+    place_service: PlaceService = Depends(),
+    session_id: Optional[str] = Cookie(None),
+) -> dict:
+    user_id = auth_service.authenticate(session_id)
+    return place_service.get_info(
+        user_id=user_id,
+        name=data.name,
+    )
+
+
+# @place_router.patch("/get")
 # async def change_info(
 #     data: PatchPlaceSchema,
 #     auth_service: AuthService = Depends(),
