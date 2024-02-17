@@ -15,6 +15,7 @@ import {MatInputModule} from "@angular/material/input";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {FormControl, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {Subject} from 'rxjs';
+import {UserService} from "../services/user.service";
 
 
 @Component({
@@ -43,7 +44,7 @@ export class BindingComponent implements AfterViewInit {
   resultChanges$ = this.resultChanges.asObservable();
   nameFormControl = new FormControl('', [Validators.required]);
 
-  constructor(private cd: ChangeDetectorRef, private ngZone: NgZone) {
+  constructor(private cd: ChangeDetectorRef, private ngZone: NgZone, private userService: UserService) {
   }
 
   ngOnInit() {
@@ -80,6 +81,7 @@ export class BindingComponent implements AfterViewInit {
 
 
         //делаем запрос на бэк, чтобы получить инпормацию от этом месте, есть ли она в бд
+        // this.userService.getPlaceInfo(result);
 
         // если нет, то тогда делаем новую привязку
         this.bindingMode = true;
@@ -93,6 +95,7 @@ export class BindingComponent implements AfterViewInit {
         this.scanIsPlace = false;
 
         //делаем запрос на бэк, чтобы получить инпормацию от этом предмете, есть ли она в бд
+        // this.userService.getProductInfo(result);
 
         // если нет, то тогда делаем новую привязку
         this.bindingMode = true;
